@@ -55,21 +55,22 @@ def multi_grt(word):
     return {word: count}
 
 
-def generate_txt_file(good_words_list, check_words_list):
+def generate_txt_file(good_words_list, check_words_list, bad_words_list):
     timestr = time.strftime("%d%m%Y-%H%M%S")
     with open("amazon_{}.txt".format(timestr), "w") as f:
-        f.write("good words: ")
-        f.write(str(len(good_words_list)))
-        f.write("\n")
-        for i in good_words_list:
-            f.write(i)
+        for list_item in (good_words_list, check_words_list, bad_words_list):
+            if list_item == good_words_list:
+                f.write("Good words: ")
+            elif list_item == check_words_list:
+                f.write("Need to check: ")
+            elif list_item == bad_words_list:
+                f.write("Bad words: ")
+            f.write(str(len(list_item)))
             f.write("\n")
-        f.write("need to check: ")
-        f.write(str(len(check_words_list)))
-        f.write("\n\n\n")
-        for i in check_words_list:
-            f.write(i)
-            f.write("\n")
+            for i in list_item:
+                f.write(i)
+                f.write("\n")
+            f.write("\n\n\n")
 
 
 def main():
@@ -94,7 +95,7 @@ def main():
     p.close()
     p.join()
 
-    generate_txt_file(good_word, need_to_check_words)
+    generate_txt_file(good_word, need_to_check_words, bad_words)
     print("good words  :", len(good_word), "\n", good_word, "\n")
     print("need to check words  :", len(need_to_check_words), "\n", need_to_check_words,"\n")
     print("bad words  :", len(bad_words), "\n", bad_words, "\n")
