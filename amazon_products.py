@@ -54,7 +54,7 @@ def multi_grt(word):
     count = compare(data_asin_dict)
     return {word: count}
 
-
+# generates a txt file with the full data
 def generate_txt_file(good_words_list, check_words_list, bad_words_list):
     timestr = time.strftime("%d%m%Y-%H%M%S")
     with open("amazon_{}.txt".format(timestr), "w") as f:
